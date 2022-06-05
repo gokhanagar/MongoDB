@@ -1,0 +1,83 @@
+// /=================================================================
+//                     TEMEL KOMUTLAR
+// =================================================================
+
+// -----------------------------------------------------------------
+// 1) Varolan veritabanlarini listelemek icin. 
+// -----------------------------------------------------------------
+show dbs;
+
+
+// -----------------------------------------------------------------
+// 2) Veritabani tanimlamak veya icine girmek icin 
+// ----------------use db ismi hep açık olmalı, sorgu yaparken sadece sorgu seçili olmamalı
+db
+
+//-----------------------------------------------------------------
+// 3) Icinde bulundugumuz (aktif) Veritabanini gormek icin
+// -----------------------------------------------------------------
+use("school");
+db
+
+// -----------------------------------------------------------------
+// 4) Aktif olan veritabaninda bir collection olusturmak icin
+// -----------------------------------------------------------------
+use("school");
+db.createCollection("students");
+ 
+// -----------------------------------------------------------------
+// 5) Aktif olan veritabanini silmek icin  
+// ----------------------------------------------------------------
+use("school");
+db.dropDatabase();
+
+
+// -----------------------------------------------------------------
+// 6) Bir collection ı silmek için
+// -----------------------------------------------------------------
+use("school");
+db.students.drop();
+
+
+
+// -----------------------------------------------------------------
+// 7) collection'a bir dokuman eklemek icin
+// -----------------------------------------------------------------
+use("school");
+db.students.insertOne({'name':"kemal","age":25,hoby:"bisiklet",
+bolum:"developer"});
+
+//Note: collection'i create etmeden dogrudan insertONe komutu ile
+//data girilebilir
+
+//Note: Collection'a data insert edilirken field'lara ' "" ve space
+//kullanilabilir
+
+// -----------------------------------------------------------------
+// 8) Collection'daki tum dokumanlari listelemek (SORGU-QUERY)icin.
+// -----------------------------------------------------------------
+use("school");
+db.students.find();
+
+// -----------------------------------------------------------------
+// 9) Collection'a birden fazla dokuman eklemek icin
+// -----------------------------------------------------------------
+use("school");
+db.students.insertMany([{name:"halit",age:"33",bolum:"lead",arac:"vw",
+memleket:"antalya"},{name:"beyza",age:23,bolum:"ba",memleket:"eskisehir"},{name:"ahmet",age:41,bolum:"sm",takim:"bjk"},{name:"arzu",age:27,bolum:"ds",ulke:"poland"}]);
+//Note: insertMany komutu ile data girilirken elementler [] ile depolanir ve her bir element {} icine yazilip , virgul ile ayrilir
+
+ use("school");
+ db.students.find().count(); //student collection daki datalar listelenip saydirildi :9
+ // -----------------------------------------------------------------
+// 10) bir değişkene tarih ekle new Date()
+// -----------------------------------------------------------------
+
+use("school");
+db.students.insertOne({"suanki_tarih":new Date()});
+
+use("school");
+db.students.insertOne({name:"omer",age:43,"tarih":new ISODate().getMonth()});
+
+use("school");
+
