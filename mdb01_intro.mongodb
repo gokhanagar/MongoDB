@@ -81,3 +81,4 @@ db.students.insertOne({name:"omer",age:43,"tarih":new ISODate().getMonth()});
 
 use("school");
 
+
