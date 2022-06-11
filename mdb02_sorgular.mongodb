@@ -195,5 +195,14 @@ db.articles.insertMany([
  {_id:8,subject:"coffee",author:"xyz",views:10}
 
 ]);
+
 use("urunler");
 db.articles.find({$text:{$search:"coffee"}})
+
+
+
+
+
+
+
+
