@@ -200,10 +200,10 @@ db.hesaplar.insertMany(
 
 use("MEDYA")
 db.hesaplar.aggregate(
-                        {$addFields:{toplam_giderler:{$sum:"harcamalar"},toplam_gelir:{$sum:"kazanc"}}  },
-                        {$addFields:{bakiye:{$sum:"harcamalar"}} },
-                        {}
-
+                        {$addFields:{toplam_gider:{$sum:"$harcamalar"},toplam_gelir:{$sum:"$kazanc"}}  },
+                        {$addFields:{bakiye:{$sum:["$toplam_gelir","$toplam_gider"]}} },
+                        {$project:{"harcamalar":0,"kazanc":0,_id:0}}
+                        // aggregate de $project icine sadece console'da gorulmesi istenmenyen (console cosmetic) field'lar(0) yazilir
                      )
 
 //bu soru tekrar edilecek
@@ -211,15 +211,25 @@ db.hesaplar.aggregate(
 // QUERY 13 ...  hesaplar collection'nin muhasabe adinda bir kopyasini olusturalim.
 //---------------------------------------------------------------------------------
 
+use("MEDYA")
+db.hesaplar.aggregate(
+                       {$project:{_id:0}},// _id field kapatildi ki yeni coll.(muhasebe)  unique id atamasi yapildi       
+                        {$merge:{into:"muhasebe"}}//coll. dokumanlar muhasebe collectiona birlestirildi
 
+                        )
 
-
+//db.hesaplar.aggregate({$merge:{into:"muhasebe"}}; id:0 kapatilmazsa eski id'lerle kopya olusturacaktir
 
 //---------------------------------------------------------------------------------
 // QUERY 14 ...  hesaplar collection'nindan harcamalar kismini cikararak kazanclar adinda 
 //     yeni bir kopyasini olusturalim.
 //---------------------------------------------------------------------------------
+use("MEDYA");
+db.hesaplar.aggregate(
+                       {$project: {harcamalar:0}},// harcamalar field cikarildi
+                       {$merge:{into:"kazanclar"}}// coll, dokumanlar kazanclar coll birlestirildi          
 
+                        )
 
 
 
@@ -246,7 +256,13 @@ db.hikayeler.insertMany(
 {"yazar" : "Pelin Su", "fiyat" : 50, "yayinYili" : 2020 }]);
 
 
-
+use("MEDYA")
+db.hikayeler.bulkWrite([
+        {insertOne:{"document": {yazar: "Mirac", fiyat:100, yayinYili : 2022 }}},
+        {updateOne:{"filter":{yazar: "Ali Gel"}, "update": {$set: {fiyat:99}}}},
+        {replaceOne:{"filter":{yazar:"Su Ak"}, "replacement": {yazar: "Yusuf Bey", fiyat:111}}},
+        {deleteOne:{"filter":{yazar:"Pelin Su"}}}]
+                        );
 
 
 
