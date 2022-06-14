@@ -7,7 +7,7 @@
 //   1-) belirtilen koşullara uyan ilk sorguyu bulur ve degistirir. 
 //   2-) Komut icerisinde belirtilen kisimlari guncellerken bos birakilan 
 //       alanlari kaldirir. (API'lerdeki PUT metoduna benzetilebilir).
-//   3-) Islem sonunda VSCODE ilgili dokumanin guncellenMEmiş halini gosterir.yani ben bunu değiştirdim diye haber veriyor
+//   3-) Islem sonunda VSCODE ilgili dokumanin guncellenmemiş halini gosterir.yani ben bunu değiştirdim diye haber veriyor
 //   4-) SYNTAX
 //        db.collection.findOneAndReplace( {filter,old field}, {replacement}, {options} ) -->{filter,old field}, {replacement}->zorunlu  {options}->opsionel   
 //       
@@ -18,7 +18,7 @@
 //       alanlari modifiye etmez  (API'lerdeki PACTH metoduna benzetilebilir).
 //   3-) komutun kosul kismindan sonra degislikileri gerceklestirmek icin bir 
 //       atomic operator kullanilir. ($set (direk değer verilirse), $inc(arttırma azaltma), $mul (çarpma)vb.)
-//   4)  Islem sonunda VSCODE ilgili dokumanin guncellenMEmiş halini gosterir.
+//   4)  Islem sonunda VSCODE ilgili dokumanin guncellenmemiş halini gosterir.
 //   5-) SYNTAX
 //       db.collection.findOneAndUpdate( {filter,old field}, {update->$set:{}}, {options} ) ******************
 //=================================================================
